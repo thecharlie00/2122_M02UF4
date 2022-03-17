@@ -56,11 +56,11 @@ let http = require("http");
       let saludo = "<h1> TFFHD </h1>";
 	 
  
-      let characters = db.collection("characters").find();
+      let col_data = db.collection(col).find();
 
-	  characters.toArray(function(err, data){
-      let characters_string= JSON.stringify(data);
-	  response.end(characters_string)
+	  col_data.toArray(function(err, data){
+      let string= JSON.stringify(data);
+	  response.end(string)
 	  });
  
   }).listen(1095);

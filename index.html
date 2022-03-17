@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head><title>TOO FAST FAMILY HD</title></head>
+<body>
+<h1>TOO FAST FAMILY HD</h1>
+
+
+<main>
+<section id = "characters">
+ 	<ul id = "characters-list">      
+	 </ul>
+
+
+</section>
+
+<section id = "items">
+
+<ul id = "items-list">
+	</ul>
+
+
+</section>
+</main>
+
+
+<script>
+function write_character_list (data){
+	let list = "";
+
+	for(let i = 0; i < data.length; i++){
+	list += "<li>"+data[i].name+"<li>";
+
+	}
+	document.getElementById("characters-list").innerHTML = list;
+}
+
+function write_item(data){
+		let list = "";
+		for (let i = 0; i < data.lenght; i++){
+			list += "<li>"+data[i].item+"<li>";
+		}
+
+		document.getElementById("items-list").innerHTML;
+}
+
+let characters_interval = setInterval(function(){
+
+	fetch("/characters")
+	.then(response => response.json())
+	.then(data => write_character_list(data));
+
+	},2000);
+
+
+let items_interval = setInterval(function){
+	fetch("/items")
+	.then(response => response.json())
+	.then(data => write_items_list(data));
+
+},2000);
+
+
+let characters_interval_ = setInterval(function{
+
+	fetch("/characters")
+		.then(response => response.json())
+		.then(data => write_characters_list(data))
+
+}2000);
+
+let characters_interval_ = setInterval(functio{ 
+      fetch("/characters")
+            .then(response => response.json())
+            .then(data => write_characters_list(data));
+ }2000);
+ 
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

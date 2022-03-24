@@ -62,6 +62,58 @@ let http = require("http");
       let string= JSON.stringify(data);
 	  response.end(string)
 	  });
+
+
+http.createServer(function(request, response){
+	res.writeHead(200);
+
+	if (request.url == "/"){
+		fs.readFile("index.html", function (err, data){
+			response.writeHead(200, {"Content-Type": "text/html"});
+			response.end(data);
+		});
+
+		return;
+	}
+
+
+	let url = request.url.split("/");
+
+
+	if (url.length == 2){
+		send_data_list(db, request, response);
+
+		return;
+	}
+
+	if (url[2].length != 24){
+		response.end();
+		return;
+	}
+
+	if (url[1] == "characters"){
+		let obj_id = new ObjectId(url[2]);
+
+		let col_data = db.collection("characters").find({"_id":obj_id},{projection: {_id:1, name:1}});
+
+		col_data.toArray(function(err, data){
+			let string = JSON.stringify(data);
+
+			response.end(string);
+
+		});
+	}
+	else if (url[1] == "items") {
+		let obj_id = new ObjectId(url[2]);
+
+		let col_data = db.collection("items").find({"_id":obj_id},{projection: {_id:1, item:1}});
+
+		col_data.toArray(function(err, data){
+			let string = JSON.stringify(data);
+
+			response.end(string);
+	});
+}
  
   }).listen(1095);
  

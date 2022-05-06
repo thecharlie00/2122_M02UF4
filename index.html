@@ -24,55 +24,64 @@
 
 
 <script>
-function write_character_list (data){
-	let list = "";
-
-	for(let i = 0; i < data.length; i++){
-	list += "<li>"+data[i].name+"<li>";
-
-	}
-	document.getElementById("characters-list").innerHTML = list;
-}
-
-function write_item(data){
-		let list = "";
-		for (let i = 0; i < data.lenght; i++){
-			list += "<li>"+data[i].item+"<li>";
-		}
-
-		document.getElementById("items-list").innerHTML;
-}
-
-let characters_interval = setInterval(function(){
-
-	fetch("/characters")
-	.then(response => response.json())
-	.then(data => write_character_list(data));
-
-	},2000);
-
-
-let items_interval = setInterval(function){
+function load_data_items ()
+{
 	fetch("/items")
-	.then(response => response.json())
-	.then(data => write_items_list(data));
+		.then(response => response.json())
+		.then(data => write_items_list(data));
+	
+}
 
-},2000);
+function write_items_list (data)
+{
+	let list = "";
+	for (let i = 0; i < data.length; i++){
+		list += '<li><a href="/items/'+data[i]._id+'">'+data[i].name+'</a></li>';
+		list += '<a href="/ItemRemove/'+data[i].id_item+'">X</a></li>';
+	}
+
+	document.getElementById("items-list").innerHTML = list;
+
+}
 
 
-let characters_interval_ = setInterval(function{
 
+
+function load_data_characters ()
+{
 	fetch("/characters")
 		.then(response => response.json())
-		.then(data => write_characters_list(data))
+		.then(data => write_characters_list(data));
 
-}2000);
+}
 
-let characters_interval_ = setInterval(functio{ 
-      fetch("/characters")
-            .then(response => response.json())
-            .then(data => write_characters_list(data));
- }2000);
+
+function write_characters_list (data)
+{
+	let list = "";
+	for (let i = 0; i < data.length; i++){
+		list += '<li><a href="/characters/'+data[i]._id+'">'+data[i].name+'</a></li>';
+		list += '<a href="/CharacterRemove/'+data[i].id_character+'">X</a></li>';
+	}
+
+	document.getElementById("characters-list").innerHTML = list;
+
+}
+
+
+let characters_interval = setInterval(function(){
+	load_data_characters();
+}, 2000);
+
+
+load_data_characters();
+
+let items_interval = setInterval(function(){
+	load_data_items();
+}, 2000);
+
+
+load_data_items();
  
 
 
